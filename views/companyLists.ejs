@@ -7,6 +7,7 @@
 </head>
 <body>
     <%- include('./partials/navbar') %>
+    <a href="/user/<%= id %>/refresh"><button>refresh</button></a>
     <table>
         <thead>
             <th>#</th>
@@ -25,7 +26,7 @@
             <% }) %>
         </tbody>
     </table>
+    <div><a href="user/<%= data.id %>/buy">buy it now!</a></div>
 
-    <a href="/admin/refresh"><button>refresh</button></a>
 </body>
 </html>

@@ -15,37 +15,7 @@ class controllerAdmin {
                 res.send(err)
             })
     }
-    static refresh(req, res) {
-        Company
-            .destroy({
-                where: {}
-            })
-            .then(() => {
-                const options = {
-                    url: 'https://financialmodelingprep.com/api/v3/stock/actives',
-                    method: 'GET'
-                }
-                return axios(options)
-            })
-            .then(response => {
-                const data = response.data.mostActiveStock
-                data.forEach((el, index) => {
-                    el.id = index+1
-                });
-                console.log(data)
-                Company
-                .bulkCreate(data)
-                .then(result=>{
-                    res.redirect('/admin')
-                })
-                .catch(err =>{
-                    res.send(err)
-                })
-            })
-            .catch(err => {
-                res.send(err)
-            })
-    }
+    
     static addForm(req, res) {
         res.render('')
     }
