@@ -10,7 +10,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(express.static('public'))
 
-app.use('/user' , router)
+app.use('/',router)
 
 app.listen(port, () => {
     console.log('listening to port', port)

@@ -1,7 +1,7 @@
 'use strict'
 
 const router = require('express').Router()
-const ControllerUser = require('../controllers/')
+const ControllerUser = require('../controllers/controllerUser')
 
 router.get('/',ControllerUser.home)
 router.get('/companyLists',ControllerUser.buy)

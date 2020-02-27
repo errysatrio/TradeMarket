@@ -1,7 +1,6 @@
 'use strict'
 
 const {} = require('../models')
-const 
 
 class controllerAdmin {
     static home(req,res){
