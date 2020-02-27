@@ -11,7 +11,7 @@ class ControllerUser {
                 {
                 include: [{
                     model:Company
-                    
+
                 }] ,
                 where: { id: id }
             }
@@ -31,7 +31,7 @@ class ControllerUser {
     static buy(req, res) {
         Company.findAll()
             .then(data => {
-                res.render('stocks', { dataCompany: data })
+                res.render('stock', { dataCompany: data })
             })
             .catch(err => {
                 console.log(err)
