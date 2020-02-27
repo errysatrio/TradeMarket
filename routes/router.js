@@ -4,20 +4,14 @@ const router = require('express').Router()
 const routerUser = require('./routerUser')
 const routerAdmin = require('./routerAdmin')
 const Controller = require('../controllers/controllerIndex')
+const checkRole = require('../middleware/session')
 
-router.get('/',Controller.home)
-router.post('/',Controller.login)
-router.get('/',Controller.register)
+router.get('/', Controller.home)
+router.post('/', Controller.login)
+router.get('/register', Controller.registerForm)
+router.post('/register', Controller.registerData)
 
-// router.use('/user',  function (req, res, next) {
-//     console.log('Time:', Date.now())
-//     next()
-//   })
-router.use('/user/:id', function (req, res, next) {
-    console.log('Time:', Date.now())
-    next()
-  }, routerUser)
-
-router.use('/admin',routerAdmin)
+router.use('/user',routerUser)
+router.use('/admin',checkRole, routerAdmin)
 
 module.exports = router

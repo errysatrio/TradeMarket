@@ -1,8 +1,8 @@
 'use strict';
+const bcrypt = require('bcryptjs');
 module.exports = (sequelize, DataTypes) => {
   const Sequelize = sequelize.Sequelize
   const Model = Sequelize.Model
-  const bcrypt = require('bcryptjs');
   class User extends Model { }
   User.init({
     nama: DataTypes.STRING,
@@ -13,8 +13,8 @@ module.exports = (sequelize, DataTypes) => {
     hooks: {
       beforeCreate: (instance,option) =>{
         let salt = bcrypt.genSaltSync(10);
-        let hash = bcrypt.hashSync(user.password, salt);
-        user.password = hash
+        let hash = bcrypt.hashSync(instance.password, salt);
+        instance.password = hash
       }
 }, sequelize });
 User.associate = function (models) {
