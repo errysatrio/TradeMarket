@@ -1,19 +1,41 @@
 'use strict'
 
-const { User, Company } = require('../models')
+const { User, Company, Stock } = require('../models')
 
 class ControllerUser {
     static home(req, res) {
+        
+        let id = Number(req.params.id)
+        console.log(id, `-----------------------------------------------------------------------`)
+        User.findAll(
+                {
+                include: [{
+                    model:Company
+                    
+                }] ,
+                where: { id: id }
+            }
+            )
+            .then(data => {
+        console.log('qwe')
+
+                res.render('userPage', { dataPortofolio: data })
+            })
+            .catch(err => {
+        console.log('123')
+
+                res.send(err)
+            })
+    }
+
+    static buy(req, res) {
         Company.findAll()
             .then(data => {
-                res.render('userPage', { dataPortofolio: data })
+                res.render('stocks', { dataCompany: data })
             })
             .catch(err => {
                 console.log(err)
             })
-    }
-    static buy(req, res) {
-        res.redirect('./companyLists')
     }
     static addForm(req, res) {
 
