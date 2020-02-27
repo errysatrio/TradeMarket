@@ -32,7 +32,6 @@ class controllerIndex {
     }
 
     static login(req, res) {
-
         const obj = {
             password: req.body.password,
             username: req.body.username
@@ -46,17 +45,19 @@ class controllerIndex {
         User
             .findOne(options)
             .then(data => {
-                // console.log(data.password)
-                // if(bcrypt.compareSync(req.body.password, data.password))
-                req.session.user = {
-                    id: data.dataValues.id,
-                    role: data.dataValues.role,
-                    isLoggedIn: true
-                }
-                if (req.session.user.role === 'User') {
-                    res.redirect(`/${data.dataValues.role.toLowerCase()}/${Number(data.dataValues.id)}`)
+                if(bcrypt.compareSync(obj.password,data.password)){
+                    req.session.user = {
+                        id: data.dataValues.id,
+                        role: data.dataValues.role,
+                        isLoggedIn: true
+                    }
+                    if (req.session.user.role === 'User') {
+                        res.redirect(`/${data.dataValues.role.toLowerCase()}/${Number(data.dataValues.id)}`)
+                    } else {
+                        res.redirect('/admin')
+                    }
                 } else {
-                    res.redirect('/admin')
+                    res.render('login')
                 }
             })
             .catch(err => {
