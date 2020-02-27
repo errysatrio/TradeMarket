@@ -6,7 +6,7 @@ const routerAdmin = require('./routerAdmin')
 const Controller = require('../controllers/controllerIndex')
 
 router.get('/',Controller.home)
-router.get('/',Controller.login)
+router.post('/',Controller.login)
 router.get('/',Controller.register)
 
 router.use('/user',routerUser)
