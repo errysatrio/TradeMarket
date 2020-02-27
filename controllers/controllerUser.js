@@ -1,10 +1,12 @@
 'use strict'
 
-const {User} = require('../models')
+const {User,Company} = require('../models')
 
-class controllerUser {
+class ControllerUser {
     static home(req,res) {
-        User.findAll()
+        User.findAll({
+            include : listCompany
+        })
         .then(data=>{
             res.render('userPage', {dataPortofolio : data})
         })
@@ -12,8 +14,20 @@ class controllerUser {
             console.log(err)
         })
     }
-    static buy(req,res) {}
-    static addForm(req,res) {}
-    static addData(req,res) {}
+    static buy(req,res) {
+        res.redirect('./companyLists')
+    }
+    static addForm(req,res) {
+        
+    }
+    static addData(req,res) {
+        Company.create({name: req.body.name, price:req.body.price, changes:req.body.prices})
+        .then(data => {
+            res.redirect('./user')
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }
 }
-module.exports = controllerUser
+module.exports = ControllerUser
