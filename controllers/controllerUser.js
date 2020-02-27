@@ -14,6 +14,7 @@ class ControllerUser {
             }
         )
             .then(data => {
+                console.log(data)
                 res.render('userPage', { dataPortofolio: data })
             })
             .catch(err => {
@@ -103,8 +104,23 @@ class ControllerUser {
                 res.send(err)
             })
     }
-    static addStocks(req,res){
 
+    static addStocks(req,res){
+        // console.log(req.body)
+        let id = Number(req.params.id)
+        let obj = {
+            CompanyId:req.body.CompanyId,
+            UserId:id
+        }
+        console.log(obj)
+        Stock
+        .create(obj)
+        .then(data=>{
+            res.redirect(`/user/${id}`)
+        })
+        .catch(err=>{
+            res.send(err)
+        })
     }
 
 
