@@ -22,35 +22,31 @@ class controllerIndex {
             },
             hooks: true
         }
+        console.log(req.session)
         User
             .findOne(options)
             .then(data => {
-                console.log(data)
-                // req.session.user = {
-                //     id : data.dataValues.id,
-                //     roleName: data.dataValues.Role.name,
-                //     isLoggedIn: true
-                // }
-                console.log(req.session.user)
-            //     if (data) {
-            //         switch (data.dataValues.Role.name) {
-            //             case 'client':
-            //                 res.render(``, { data })
-            //                 break
-
-            //             case 'admin':
-            //                 res.redirect(`/${data.dataValues.Role.name}`)
-            //                 break
-            //         }
-            //     } else {
-            //         res.render('login', { data: null, msg: 'Incorrect username / password' })
-            //     }
-            // })
-            // .catch(err => {
-            //     res.render('login', { data: null, msg: 'Incorrect username / password' })
-            res.send(data)
+                req.session.user = {
+                    id : data.dataValues.id,
+                    role: data.dataValues.role,
+                    isLoggedIn: true
+                }
+                if (data) {
+                    switch (data.dataValues.role) {
+                        case 'client':
+                            res.render(``, { data })
+                            break
+                        case 'admin':
+                            res.redirect(`/${data.dataValues.role}`)
+                            break
+                    }
+                } else {
+                    res.render('login', { data: null, msg: 'Incorrect username / password' })
+                }
             })
             .catch(err=>{
+                console.log('masuk sini')
+                console.log(err)
                 res.send(err)
             })
     }
