@@ -47,7 +47,7 @@ class controllerIndex {
             .findOne(options)
             .then(data => {
                 // console.log(data.password)
-                if(bcrypt.compareSync(req.body.password, data.password))
+                // if(bcrypt.compareSync(req.body.password, data.password))
                 req.session.user = {
                     id: data.dataValues.id,
                     role: data.dataValues.role,
