@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     role: DataTypes.STRING
   }, {
     hooks: {
-      beforeCreate: (instance,option) =>{
+      beforeSave: (instance,option) =>{
         let salt = bcrypt.genSaltSync(10);
         let hash = bcrypt.hashSync(instance.password, salt);
         instance.password = hash

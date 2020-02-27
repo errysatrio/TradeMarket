@@ -82,15 +82,14 @@ class ControllerUser {
             })
     }
 
-    static editData(req, res) {
+    static editDataUser(req, res) {
         let id = Number(req.params.id)
         let obj = {
-            name: req.body.name,
+            nama: req.body.name,
             user_name: req.body.user_name,
             password: req.body.password,
             email: req.body.email
         }
-        console.log(id)
         User
             .update(obj, {
                 where: {
@@ -98,10 +97,16 @@ class ControllerUser {
                 }
             })
             .then(data => {
-                console.log(id)
                 res.redirect(`/user/${id}`)
-                // res.send(data)
+            })
+            .catch(err=>{
+                res.send(err)
             })
     }
+    static addStocks(req,res){
+
+    }
+
+
 }
 module.exports = ControllerUser
