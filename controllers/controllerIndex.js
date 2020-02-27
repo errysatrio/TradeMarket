@@ -45,6 +45,8 @@ class controllerIndex {
         User
             .findOne(options)
             .then(data => {
+                // console.log(obj.password)
+                // console.log('asd')
                 if(bcrypt.compareSync(obj.password,data.password)){
                     req.session.user = {
                         id: data.dataValues.id,
@@ -52,7 +54,7 @@ class controllerIndex {
                         isLoggedIn: true
                     }
                     if (req.session.user.role === 'User') {
-                        res.redirect(`/${data.dataValues.role.toLowerCase()}/${Number(data.dataValues.id)}`)
+                        res.redirect(`/user/${Number(data.dataValues.id)}`)
                     } else {
                         res.redirect('/admin')
                     }
