@@ -6,24 +6,18 @@ class ControllerUser {
     static home(req, res) {
         
         let id = Number(req.params.id)
-        console.log(id, `-----------------------------------------------------------------------`)
+        // console.log(id, `-----------------------------------------------------------------------`)
         User.findAll(
                 {
                 include: [{
-                    model:Company
-
-                }] ,
+                    model:Company 
+                }],
                 where: { id: id }
-            }
-            )
+            })
             .then(data => {
-        console.log('qwe')
-
                 res.render('userPage', { dataPortofolio: data })
             })
             .catch(err => {
-        console.log('123')
-
                 res.send(err)
             })
     }

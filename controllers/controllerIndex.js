@@ -65,37 +65,6 @@ class controllerIndex {
                 res.send(err)
             })
     }
-    static registerPage(req, res) {
-        res.render('register', { error: null, value: null, msg: null })
-    }
-    static register(req, res) {
-        const value = {
-            username: req.body.username,
-            email: req.body.email,
-            password: req.body.password,
-        }
-        User
-            .create(value)
-            .then(user => {
-                res.render('index', { data: null, msg: null })
-            })
-            .catch(err => {
-                const error = IndexController.createError(err.errors)
-                res.render('register', { value, error, msg: null })
-            })
-    }
-
-    static createError(err) {
-        let temp = {}
-        err.forEach(element => {
-            if (!temp[element.path]) {
-                temp[element.path] = [element.message]
-            } else {
-                temp[element.path].push(element.message)
-            }
-        });
-        return temp
-    }
 
 }
 

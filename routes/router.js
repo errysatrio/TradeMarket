@@ -14,4 +14,8 @@ router.post('/register', Controller.registerData)
 router.use('/user',routerUser)
 router.use('/admin',checkRole, routerAdmin)
 
+// router.get('/logout', req.session.destroy(()=>{
+
+// })
+
 module.exports = router

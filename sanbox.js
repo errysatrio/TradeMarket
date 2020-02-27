@@ -9,8 +9,9 @@ const options = {
 
 const req = https.request(options, (res) => {
   res.on('data', (d) => {
-    let x = process.stdout.write(d)
-    console.log('=======================================',JSON.parse(d.toString('utf8')))
+    // process.stdout.write(d)
+    let x = JSON.parse(d.toString('utf8'))
+    console.log(x)
   })
 })
 

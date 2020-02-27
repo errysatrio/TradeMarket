@@ -5,28 +5,28 @@ module.exports = {
 
     return queryInterface.bulkInsert('Companies', [
       {
-        name: 'Astra',
+        companyName: 'Astra',
         price:  488201,
         changes: 2415,
         createdAt : new Date(),
         updatedAt : new Date()
       },
       {
-        name: 'Telkom',
+        companyName: 'Telkom',
         price: 112444,
         changes: 879,
         createdAt : new Date(),
         updatedAt : new Date()
       },
       {
-        name: 'Unilever',
+        companyName: 'Unilever',
         price: 997532,
         changes: 1547,
         createdAt : new Date(),
         updatedAt : new Date()
       },
       {
-        name: 'Gudang Garam',
+        companyName: 'Gudang Garam',
         price: 265012,
         changes: 8466,
         createdAt : new Date(),
