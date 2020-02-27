@@ -6,19 +6,19 @@ module.exports = {
     return queryInterface.bulkInsert('Stocks', [
       {
         CompanyId: 2,
-        UserId: 3,
+        UserId: 5,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
         CompanyId: 3,
-        UserId: 3,
+        UserId: 5,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
         CompanyId: 1,
-        UserId: 3,
+        UserId: 5,
         createdAt: new Date(),
         updatedAt: new Date()
       },
