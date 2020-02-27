@@ -14,7 +14,7 @@ module.exports = {
       price: {
         type: Sequelize.FLOAT
       },
-      change: {
+      changes: {
         type: Sequelize.FLOAT
       },
       createdAt: {
