@@ -7,7 +7,7 @@ const bcrypt = require('bcryptjs');
 class controllerIndex {
 
     static home(req, res) {
-        res.render('login', { data: null, msg: null })
+        res.render('login', { errMsg: null, errPass:null })
     }
     static registerForm(req, res) {
         res.render('register')
@@ -27,6 +27,7 @@ class controllerIndex {
                 res.redirect('/')
             })
             .catch(err => {
+                console.log(err)
                 res.send(err)
             })
     }
@@ -45,8 +46,10 @@ class controllerIndex {
         User
             .findOne(options)
             .then(data => {
-                // console.log(obj.password)
-                // console.log('asd')
+                var errMsg = false
+                if(!data){
+                    errMsg = true
+                }
                 if(bcrypt.compareSync(obj.password,data.password)){
                     req.session.user = {
                         id: data.dataValues.id,
@@ -59,12 +62,11 @@ class controllerIndex {
                         res.redirect('/admin')
                     }
                 } else {
-                    res.render('login')
+                    res.render('login',{errMsg:true, errPass:true})
                 }
             })
             .catch(err => {
-                console.log(err)
-                res.send(err)
+                res.render('login',{errMsg:true, errPass:false})
             })
     }
 

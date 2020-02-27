@@ -235,5 +235,7 @@ input:focus {
         <input type="password" name="password" placeholder="Password" required="required" />
         <button type="submit" class="btn btn-primary btn-block btn-large">Login</button>
         <button class="btn btn-primary btn-block btn-large" onclick="window.location.href = '/register'">Register</button>
+        <p style="text-align: center; color: #e6e6e6;"><%= errMsg ? 'username/password salah' : '' %></p>
     </form>
 </div>
+<%= errPass ? 'wrong password!' : '' %>

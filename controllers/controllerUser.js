@@ -14,6 +14,7 @@ class ControllerUser {
             }
         )
             .then(data => {
+                console.log(data)
                 res.render('userPage', { dataPortofolio: data })
             })
             .catch(err => {
