@@ -1,16 +1,11 @@
 'use strict'
 
-function checkRole(req, res, next) {
-    console.log(req.session)
-    if (req.session.user.role === 'Admin') {
-        console.log('l')
+function checkStatus(req, res, next) {
+    if (req.session.user.isLoggedIn === true) {
         next()
     } else {
-        console.log('123')
-        // req.session.destroy((err)=>{
-            res.redirect(`/`)
-        // })
+        res.redirect(`/`)
     }
 }
 
-module.exports = checkRole
+module.exports = checkStatus

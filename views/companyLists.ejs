@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <%- include('./partials/navbar') %>
+    <table>
+        <thead>
+            <th>#</th>
+            <th>CompanyName</th>
+            <th>Changes</th>
+            <th>Prices</th>
+        </thead>
+        <tbody>
+            <% data.forEach((el, index)=>{ %>
+               <tr>
+                   <td><%= index+1 %></td>
+                   <td><%= el.companyName %></td>
+                   <td><%= el.changes %></td>
+                   <td><%= el.price %></td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+
+    <a href="/admin/refresh"><button>refresh</button></a>
+</body>
+</html>

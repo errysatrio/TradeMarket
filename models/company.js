@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
   const Model = Sequelize.Model
   class Company extends Model { }
   Company.init({
-    name: DataTypes.STRING,
+    companyName: DataTypes.STRING,
     price: DataTypes.FLOAT,
     changes: DataTypes.FLOAT
   }, { sequelize });

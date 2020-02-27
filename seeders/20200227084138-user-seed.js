@@ -1,45 +1,47 @@
 'use strict';
+const bcrypt = require('bcryptjs');
+let salt = bcrypt.genSaltSync(10);
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-
+    
     return queryInterface.bulkInsert('Users', [
       {
         nama: 'Andy',
         user_name: 'Andy',
-        password: '123',
+        password: bcrypt.hashSync('123', salt),
         role: 'Admin',
-        email:'qwe@qwe.com',
-        createdAt : new Date(),
-        updatedAt : new Date()
-
+        email: '123@qwe.com',
+        createdAt: new Date(),
+        updatedAt: new Date()
+        
       },
       {
         nama: 'Budi',
         user_name: 'Budi',
-        password: 'inibaru',
-        email:'qwe@qwe.com',
+        password: bcrypt.hashSync('inibaru', salt),
+        email: 'asd@qwe.com',
         role: 'User',
-        createdAt : new Date(),
-        updatedAt : new Date()
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
       {
         nama: 'Chika',
         user_name: 'Budi',
-        password: 'inilama',
-        email:'qwe@qwe.com',
+        password: bcrypt.hashSync('inilama', salt),
+        email: 'qwe@qwe.com',
         role: 'User',
-        createdAt : new Date(),
-        updatedAt : new Date()
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
       {
         nama: 'Doni',
         user_name: 'Doni',
-        password: 'inianeh',
-        email:'qwe@qwe.com',
+        password: bcrypt.hashSync('inianeh', salt),
+        email: 'poiu@qwe.com',
         role: 'User',
-        createdAt : new Date(),
-        updatedAt : new Date()
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
     ], {});
 

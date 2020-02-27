@@ -1,64 +1,62 @@
 'use strict'
 
-const {Company, User, Sequelize} = require('../models')
-
+const { Company, User, Sequelize } = require('../models')
+const axios = require('axios')
+// const sanbox = require('../sanbox')
+// console.log(sanbox)
 class controllerAdmin {
-    static home(req,res){
+    static home(req, res) {
         Company
-        .findAll()
-        .then(data=>{
-            res.render('companyLists')
-        })
-        .catch(err=>{
-            res.send(err)
-        })
+            .findAll()
+            .then(data => {
+                res.render('companyLists', { data })
+            })
+            .catch(err => {
+                res.send(err)
+            })
     }
-    static refresh(req,res){
+    static refresh(req, res) {
         Company
-        .destroy({
-            where: {}
-        })
-        .then(() => {
-            const value = {
-                hostname: 'financialmodelingprep.com',
-                port: 443,
-                path: '/api/v3/stock/actives',
-                method: 'GET'
-            }
-            const request = https.request(value, (result) => {
-                result.on('data', (d) => {
-                    const datas = JSON.parse(d.toString('utf8')).mostActiveStock
-                    datas.forEach((data, index) => {
-                        data.id = index + 1
-                    });
-                    Company
-                        .bulkCreate(datas)
-                        .then(data => {
-                            res.render('admin', { companies: data })
-                        })
-                        .catch(err => res.send(err))
+            .destroy({
+                where: {}
+            })
+            .then(() => {
+                const options = {
+                    url: 'https://financialmodelingprep.com/api/v3/stock/actives',
+                    method: 'GET'
+                }
+                return axios(options)
+            })
+            .then(response => {
+                const data = response.data.mostActiveStock
+                data.forEach((el, index) => {
+                    el.id = index+1
+                });
+                console.log(data)
+                Company
+                .bulkCreate(data)
+                .then(result=>{
+                    res.redirect('/admin')
+                })
+                .catch(err =>{
+                    res.send(err)
                 })
             })
-            request.on('error', (error) => {
-                console.error(error)
+            .catch(err => {
+                res.send(err)
             })
-            request.end()
-        })
-        .catch(err => {
-            res.send(err)
-        })
     }
-    static addForm(req,res){
+    static addForm(req, res) {
         res.render('')
     }
-    static addData(req,res){
+    static addData(req, res) {
         let obj = {
-            
+
         }
     }
-    static editForm(req,res){}
-    static editData(req,res){}
-    static deleteData(req,res){}
+    static editForm(req, res) { }
+    static editData(req, res) { }
+    static deleteData(req, res) { }
 }
 
 module.exports = controllerAdmin
