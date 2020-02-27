@@ -1,12 +1,16 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const Company = sequelize.define('Company', {
+  const Sequelize = sequelize.Sequelize
+  const Model = Sequelize.Model
+  class Company extends Moel { }
+  Company.init({
     name: DataTypes.STRING,
     price: DataTypes.FLOAT,
     changez: DataTypes.FLOAT
-  }, {});
-  Company.associate = function(models) {
+  }, { sequelize });
+  Company.associate = function (models) {
     // associations can be defined here
+    Company.belongsToMany(models.User,{through:models.Stock})
   };
   return Company;
 };
