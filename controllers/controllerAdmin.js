@@ -1,10 +1,20 @@
 'use strict'
 
-const {} = require('../models')
+const {Company, User, Sequelize} = require('../models')
 
 class controllerAdmin {
     static home(req,res){
-        Model
+        Company
+        .findAll()
+        .then(data=>{
+            res.render('companyLists')
+        })
+        .catch(err=>{
+            res.send(err)
+        })
+    }
+    static refresh(req,res){
+        Company
         .destroy({
             where: {}
         })
@@ -21,7 +31,7 @@ class controllerAdmin {
                     datas.forEach((data, index) => {
                         data.id = index + 1
                     });
-                    Model
+                    Company
                         .bulkCreate(datas)
                         .then(data => {
                             res.render('admin', { companies: data })
@@ -32,7 +42,6 @@ class controllerAdmin {
             request.on('error', (error) => {
                 console.error(error)
             })
-
             request.end()
         })
         .catch(err => {

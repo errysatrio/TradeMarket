@@ -1,6 +1,6 @@
 'use strict'
 
-const {User, Company, Sequelize} = require('../models')
+const { User, Company, Sequelize } = require('../models')
 const Op = Sequelize.Op
 const bcrypt = require('bcryptjs');
 
@@ -9,58 +9,69 @@ class controllerIndex {
     static home(req, res) {
         res.render('login', { data: null, msg: null })
     }
+    static registerForm(req, res) {
+        res.render('register')
+    }
 
-    static login(req, res) {
-        const obj = {
-            password : req.body.password,
-            username : req.body.username
+    static registerData(req, res) {
+        let obj = {
+            nama: req.body.nama,
+            user_name: req.body.user_name,
+            password: req.body.password,
+            role: 'User',
+            email: req.body.email
         }
-        const options = {
-            where: {
-                [Op.or]: [ { user_name:obj.username }],
-                [Op.and]: { password: obj.password }
-            },
-            hooks: true
-        }
-        console.log(req.session)
         User
-            .findOne(options)
+            .create(obj)
             .then(data => {
-                req.session.user = {
-                    id : data.dataValues.id,
-                    role: data.dataValues.role,
-                    isLoggedIn: true
-                }
-                if (data) {
-                    switch (data.dataValues.role) {
-                        case 'client':
-                            res.render(``, { data })
-                            break
-                        case 'admin':
-                            res.redirect(`/${data.dataValues.role}`)
-                            break
-                    }
-                } else {
-                    res.render('login', { data: null, msg: 'Incorrect username / password' })
-                }
+                res.redirect('/')
             })
-            .catch(err=>{
-                console.log('masuk sini')
-                console.log(err)
+            .catch(err => {
                 res.send(err)
             })
     }
 
-    static registerPage(req, res) {
-        res.render('register', { error: null, value: null, msg : null })
-    }
+    static login(req, res) {
 
+        const obj = {
+            password: req.body.password,
+            username: req.body.username
+        }
+        const options = {
+            where: {
+                [Op.or]: [{ email: obj.username }, { user_name: obj.username }]
+            },
+            hooks: true
+        }
+        User
+            .findOne(options)
+            .then(data => {
+                // console.log(data.password)
+                if(bcrypt.compareSync(req.body.password, data.password))
+                req.session.user = {
+                    id: data.dataValues.id,
+                    role: data.dataValues.role,
+                    isLoggedIn: true
+                }
+                if (req.session.user.role === 'User') {
+                    res.redirect(`/${data.dataValues.role.toLowerCase()}/${Number(data.dataValues.id)}`)
+                } else {
+                    res.redirect('/admin')
+                }
+            })
+            .catch(err => {
+                console.log(err)
+                res.send(err)
+            })
+    }
+    static registerPage(req, res) {
+        res.render('register', { error: null, value: null, msg: null })
+    }
     static register(req, res) {
         const value = {
             username: req.body.username,
             email: req.body.email,
             password: req.body.password,
-            RoleId: 3
         }
         User
             .create(value)
