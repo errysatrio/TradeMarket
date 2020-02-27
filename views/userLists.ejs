@@ -1,0 +1,21 @@
+<%- include('./partials/head')%>
+<%- include('./partials/navbar')%>
+
+<table>
+    <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Username</th>
+        <th>Actions</th>
+    </tr>
+    <% data.forEach((el,index)=>{ %>
+        <tr>
+            <td><%= index+1 %></td>
+            <td><%= el.nama %></td>
+            <td><%= el.user_name %></td>
+            <td><a href="/admin/delete/<%= el.id %>"><button type="submit">Remove</button></a></td>
+        </tr>
+    <% }) %>
+</table>
+
+<%- include('./partials/footer')%>
